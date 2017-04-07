@@ -8,7 +8,18 @@ mov p0m1,#0		; configure Port 0 as bi-directional
 
 
 
+decrement 
+mov ACC.7,r0
+je #1, loop
+AND 
 
+mov r0, #0Fh
+sjmp(loop for inc/dec)
 
+increment
+mov A,#0h
+jne r0,(loop for inc/dec)
+mov r0,#0h
+sjmp (loop for inc/dec)
 
 end
