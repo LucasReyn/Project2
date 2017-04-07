@@ -1,1 +1,14 @@
-skdjfkjghkj
+#include <reg932.inc>
+
+cseg at 0
+
+mov p2m1,#0		; configure Port 2 as bi-directional
+mov p1m1,#0		; configure Port 1 as bi-directional
+mov p0m1,#0		; configure Port 0 as bi-directional
+
+
+
+
+
+
+end
