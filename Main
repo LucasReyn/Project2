@@ -9,17 +9,15 @@ mov p0m1,#0		; configure Port 0 as bi-directional
 
 
 decrement 
-mov ACC.7,r0
-je #1, loop
-AND 
-
-mov r0, #0Fh
-sjmp(loop for inc/dec)
+mov ACC.7,r0              ; grabs 8th bit from register 0
+jne #1, loop              ; jumps if ACC.7 not equal to 1 to buttons
+AND r0.#0Fh               ; if ACC.7 is 1 then it makes r0 equal 15    
+sjmp(loop for inc/dec)    ; short jump back to button 
 
 increment
-mov A,#0h
-jne r0,(loop for inc/dec)
-mov r0,#0h
-sjmp (loop for inc/dec)
+mov ACC.4,#0h               ; grabs 5th bit from register 0
+jne #1,(loop for inc/dec)   ; jumps if ACC.4 is not equal to 1 to buttons
+mov r0,#0                   ; makes r0 equal to 0
+sjmp (loop for inc/dec)     ; short jumps back to button
 
 end
