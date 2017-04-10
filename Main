@@ -2,22 +2,28 @@
 
 cseg at 0
 
-mov p2m1,#0		; configure Port 2 as bi-directional
-mov p1m1,#0		; configure Port 1 as bi-directional
-mov p0m1,#0		; configure Port 0 as bi-directional
+        mov p2m1,#0		; configure Port 2 as bi-directional
+        mov p1m1,#0		; configure Port 1 as bi-directional
+        mov p0m1,#0		; configure Port 0 as bi-directional
 
 
 
-decrement 
-mov ACC.7,r0              ; grabs 8th bit from register 0
-jne #1, loop              ; jumps if ACC.7 not equal to 1 to buttons
-AND r0.#0Fh               ; if ACC.7 is 1 then it makes r0 equal 15    
-sjmp(loop for inc/dec)    ; short jump back to button 
+; decrement 
+    
+        mov ACC.7,r0              ; grabs 8th bit from register 0
+        je #1, flow               ; jumps if ACC.7 equals 1 to alarm
+        sjmp(loop for inc/dec)    ; short jump back to button 
 
-increment
-mov ACC.4,#0h               ; grabs 5th bit from register 0
-jne #1,(loop for inc/dec)   ; jumps if ACC.4 is not equal to 1 to buttons
-mov r0,#0                   ; makes r0 equal to 0
-sjmp (loop for inc/dec)     ; short jumps back to button
+; increment or multiply
+    
+        mov ACC.4,#0h              ; grabs 5th bit from register 0
+        je #1,flow                 ; jumps if ACC.4 equals 1 to alarm
+        sjmp (loop for inc/dec)    ; short jumps back to button
+
+; overflow/underflow alarm
+flow:   AND r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+        ; emit alarm sound
+        sjmp(loop for buttons)
+        
 
 end
