@@ -60,6 +60,7 @@ sound:	mov r3,r0
 delay:				; delay subroutine label
 	mov R2,#40		; initial value for delay_loop2
 delay_loop1:			; start of delay_loop1
+	ADD r3,#13
 	mov R1,R3		; initial value for delay_loop0
 delay_loop0:			; start of delay_loop0
 	nop			; two nops take two processor clock
