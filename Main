@@ -67,6 +67,14 @@ togglebit3:
 
 
 
+sound:	mov A, r0
+	mov r3,A
+	mov r4,#255
+sloop:	cpl p1.7
+	lcall delay
+	djnz R4, sloop
+	sjmp loop  
+
 check:  mov A, r0		
 	jb ACC.4, alarm
 	jb ACC.7, alarm
@@ -77,7 +85,7 @@ alarm:	mov A, r0
 	mov r0, A
 	mov r3,#16
 	mov r5,#3        	; emit alarm sound 4 times
-again0:	mov r6,#30
+again0:	mov r6,#100
 again1:	cpl p1.7
 	lcall delay
 	djnz r6,again1
@@ -140,13 +148,7 @@ delayb0:
 
 
       
-sound:	mov A, r0
-	mov r3,A
-	mov r4,#255
-sloop:	cpl p1.7
-	lcall delay
-	djnz R4, sloop
-	sjmp loop     
+   
         
 
 end
