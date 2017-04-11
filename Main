@@ -116,12 +116,12 @@ delayLoop0:			; start of delayLoop1
 
 ; blinkes amount in r0
 blink:	mov A,R0
-	mov R6,A
+	mov R9,A
 bloop:	clr p0.4
 	lcall delayb	
  	setb p0.4
 	lcall delayb
-	djnz R6, bloop
+	djnz R9, bloop
 	sjmp sound
 	
 delayb:				
