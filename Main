@@ -46,8 +46,13 @@ check:  mov A, r0		; grabs 5th bit from register 0
 	jb ACC.7, alarm
 	sjmp loop
 	
-alarm:	ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
-        ; emit alarm sound
+alarm:	ANL r0,#0Fh             ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+	mov r5,#3        	; emit alarm sound 4 times
+again0:	mov r6,#30
+again1:	cpl p1.7
+	lcall delay
+	djnz r6,again1
+	djnz r5,again0
 sound:	mov r3,r0
 	mov r4,#255
 	cpl p1.7
