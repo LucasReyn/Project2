@@ -21,8 +21,8 @@ loop:	mov c,p1.4		; move switch _ to c flag
 	jnc togglebit2		; jump to togglebit2 label if __ pressed
 	mov c,p0.2		; move switch _ to c flag      
 	jnc togglebit3		; jump to togglebit3 label if __ pressed
-        mov c,p_._		; move switch _ to c flag      
-	jnc __			; jump to __ label if __ pressed
+        mov c,p2.0		; move switch _ to c flag      
+	jnc multiply			; jump to __ label if __ pressed
         mov c,p_._		; move switch _ to c flag
 	jnc __			; jump to __ label if __ pressed
 	mov c,p_._		; move switch _ to c flag      
@@ -62,6 +62,23 @@ blink:  mov R1,R0
 	jnz blink
 	sjmp(loop for inc/dec)
 	
+multiply:  mov A, R0            ; mov data to Acc    
+           add R0, A            ; adding r0 and accumulator is same as multiplying by 2
+           sjmp check           ; checks for overflow/underflow
+           jb display           ; jumps to display
+	   jnz multiply         ; jumps back to multiply if it doesn't equal 0
+	   sjmp loop            ; jumps back to the start of the program
+	   
+display:   mov A, R0            ; mov data to acc
+           CPL A                ; invert the data because active low 
+           mov p2.6, acc.0      ; LED9
+           mov 0.7, acc.1       ; LED8
+           mov 2.5, acc.2       ; LED7
+           mov 0.6, acc.3       ; LED6
+           sjmp loop            ; jumps back to the start of the program
+
+      
+     
         
 ; togglebit
 togglebit0:
