@@ -33,22 +33,23 @@ loop:	mov c,p1.4		; move switch _ to c flag
 ; decrement 
 decrement:
         dec r0                  ; decrement r0
-        mov ACC.7,r0            ; grabs 8th bit from register 0
-        jb flow             	; jumps if ACC.7 equals 1 to alarm
-        sjmp(loop)  ; short jump back to button 
+        sjmp check  ; short jump to check 
 
 ; increment or multiply
 increment:
         inc r0                  ; increment r0
-        mov ACC.4,#0h		; grabs 5th bit from register 0
-        jb flow                 ; jumps if ACC.4 equals 1 to alarm
-        sjmp (loop) ; short jumps back to button
-
+        sjmp check ; short jumps check
 ; overflow/underflow alarm
 
-flow:  ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+check:  mov ACC.4, 04h		; grabs 5th bit from register 0
+	jb alarm
+	mov ACC.7, 07h            ; grabs 8th bit from register 0
+	jb alarm
+	sjmp loop
+	
+alarm:	ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
         ; emit alarm sound
-        sjmp(loop)
+        sjmp loop
 
 	
 ; blinkes amount in r0
