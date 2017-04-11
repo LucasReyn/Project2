@@ -140,8 +140,8 @@ delayb0:
 
 
       
-sound:	mov A, r3
-	mov r0,A
+sound:	mov A, r0
+	mov r3,A
 	mov r4,#255
 sloop:	cpl p1.7
 	lcall delay
