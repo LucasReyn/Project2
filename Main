@@ -5,25 +5,70 @@ cseg at 0
         mov p2m1,#0		; configure Port 2 as bi-directional
         mov p1m1,#0		; configure Port 1 as bi-directional
         mov p0m1,#0		; configure Port 0 as bi-directional
+        
+        mov r0, #00h            ; initialise r0
 
+; button listener
+        loop:
+	mov c,p_._		; move switch _ to c flag
+	jnc increment		; jump to increment label if __ pressed
+	mov c,p_._		; move switch _ to c flag      
+	jnc decrement		; jump to decrement label if __ pressed
+        mov c,p_._		; move switch _ to c flag
+	jnc togglebit0		; jump to togglebit0 label if __ pressed
+	mov c,p_._		; move switch _ to c flag      
+	jnc togglebit1		; jump to togglebit1 label if __ pressed
+        mov c,p_._		; move switch _ to c flag
+	jnc togglebit2		; jump to togglebit2 label if __ pressed
+	mov c,p_._		; move switch _ to c flag      
+	jnc togglebit3		; jump to togglebit3 label if __ pressed
+        mov c,p_._		; move switch _ to c flag      
+	jnc decrement		; jump to  label if __ pressed
+        mov c,p_._		; move switch _ to c flag
+	jnc increment		; jump to  label if __ pressed
+	mov c,p_._		; move switch _ to c flag      
+	jnc decrement		; jump to  label if __ pressed
+	sjmp loop		; jump back
 
 
 ; decrement 
-    
-        mov ACC.7,r0              ; grabs 8th bit from register 0
-        je #1, flow               ; jumps if ACC.7 equals 1 to alarm
-        sjmp(loop for inc/dec)    ; short jump back to button 
+        decrement:
+        dec r0                  ; decrement r0
+        mov ACC.7,r0            ; grabs 8th bit from register 0
+        je #1, flow             ; jumps if ACC.7 equals 1 to alarm
+        sjmp(loop for inc/dec)  ; short jump back to button 
 
 ; increment or multiply
-    
-        mov ACC.4,#0h              ; grabs 5th bit from register 0
-        je #1,flow                 ; jumps if ACC.4 equals 1 to alarm
-        sjmp (loop for inc/dec)    ; short jumps back to button
+        increment:
+        inc r0                  ; increment r0
+        mov ACC.4,#0h           ; grabs 5th bit from register 0
+        je #1,flow              ; jumps if ACC.4 equals 1 to alarm
+        sjmp (loop for inc/dec) ; short jumps back to button
 
 ; overflow/underflow alarm
 flow:   AND r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
         ; emit alarm sound
         sjmp(loop for buttons)
         
-
+; togglebit
+        togglebit0:
+        mov A, R0               ; mov data to Acc
+        xrl A, #01h             ; togglebit 0
+        mov R0, A               ; store data in R0
+        sjmp loop
+        togglebit1:
+        mov A, R0               ; mov data to Acc
+        xrl A, #02h             ; togglebit 1
+        mov R0, A               ; store data in R0
+        sjmp loop
+        togglebit2:
+        mov A, R0               ; mov data to Acc
+        xrl A, #04h             ; togglebit 2
+        mov R0, A               ; store data in R0
+        sjmp loop
+        togglebit3:
+        mov A, R0               ; mov data to Acc
+        xrl A, #08h             ; togglebit 3
+        mov R0, A               ; store data in R0
+        sjmp loop
 end
