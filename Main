@@ -48,7 +48,7 @@ multiply:  mov A, R0            ; mov data to Acc
 	   
 	   
 
-check:  mov A, r0		; grabs 5th bit from register 0
+check:  mov A, r0		
 	jb ACC.4, alarm
 	jb ACC.7, alarm
 	sjmp display
@@ -76,12 +76,16 @@ sound:	mov r3,r0
 
 	   
 display:   mov A, R0            ; mov data to acc
-           CPL A                ; invert the data because active low 
-           mov p2.6, acc.0      ; LED9
-           mov 0.7, acc.1       ; LED8
-           mov 2.5, acc.2       ; LED7
-           mov 0.6, acc.3       ; LED6
-           sjmp blink           ; jumps to sound
+           CPL A                ; invert the data because active low
+	   mov c, acc.0
+           mov p2.6, c      	; LED9
+	   mov c, acc.1
+           mov p0.7, c	       	; LED8
+	   mov c, acc.2
+           mov p2.5, c       	; LED7
+	   mov c, acc.3
+           mov p0.6, c       	; LED6
+           sjmp blink           ; jumps to blink
 
 
 
