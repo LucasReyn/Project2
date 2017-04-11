@@ -9,17 +9,17 @@ cseg at 0
         mov r0, #00h            ; initialise r0
 
 ; button listener
-loop:	mov c,p_._		; move switch _ to c flag
+loop:	mov c,p1.4		; move switch _ to c flag
 	jnc increment		; jump to increment label if __ pressed
-	mov c,p_._		; move switch _ to c flag      
+	mov c,p0.0		; move switch _ to c flag      
 	jnc decrement		; jump to decrement label if __ pressed
-        mov c,p_._		; move switch _ to c flag
+        mov c,p2.2		; move switch _ to c flag
 	jnc togglebit0		; jump to togglebit0 label if __ pressed
-	mov c,p_._		; move switch _ to c flag      
+	mov c,p0.3		; move switch _ to c flag      
 	jnc togglebit1		; jump to togglebit1 label if __ pressed
-        mov c,p_._		; move switch _ to c flag
+        mov c,p2.1		; move switch _ to c flag
 	jnc togglebit2		; jump to togglebit2 label if __ pressed
-	mov c,p_._		; move switch _ to c flag      
+	mov c,p0.2		; move switch _ to c flag      
 	jnc togglebit3		; jump to togglebit3 label if __ pressed
         mov c,p_._		; move switch _ to c flag      
 	jnc __			; jump to __ label if __ pressed
