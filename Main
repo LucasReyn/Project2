@@ -54,9 +54,9 @@ flow:   AND r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then i
 
 	mov R1,R0
 blink:	setb P0.4
-		;delay
+		;delay 500ms 100*18432
 	clr P0.4
-		;delay
+		;delay 500ms 100*18432
 	sub R1,#01h
 	jnz blink
 	sjmp(loop for inc/dec)
