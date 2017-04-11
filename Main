@@ -136,20 +136,20 @@ togglebit0:
         mov A, R0               ; mov data to Acc
         xrl A, #01h             ; togglebit 0
         mov R0, A               ; store data in R0
-        sjmp loop
-        togglebit1:
+        sjmp display
+togglebit1:
         mov A, R0               ; mov data to Acc
         xrl A, #02h             ; togglebit 1
         mov R0, A               ; store data in R0
-        sjmp loop
-        togglebit2:
+        sjmp display
+togglebit2:
         mov A, R0               ; mov data to Acc
         xrl A, #04h             ; togglebit 2
         mov R0, A               ; store data in R0
-        sjmp loop
-        togglebit3:
+        sjmp display
+togglebit3:
         mov A, R0               ; mov data to Acc
         xrl A, #08h             ; togglebit 3
         mov R0, A               ; store data in R0
-        sjmp loop
+        sjmp display
 end
