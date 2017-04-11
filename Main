@@ -124,13 +124,14 @@ delayLoop0:			; start of delayLoop1
 
 ; blinkes amount in r0
 blink:	mov A,R0
+	jz pass
 	mov R7,A
 bloop:	clr p0.4
 	lcall delayb	
  	setb p0.4
 	lcall delayb
 	djnz R7, bloop
-	sjmp sound
+pass:	sjmp sound
 	
 delayb:				
 	mov R3,#10		
