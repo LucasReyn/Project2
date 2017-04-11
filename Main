@@ -41,10 +41,9 @@ increment:
         sjmp check ; short jumps check
 ; overflow/underflow alarm
 
-check:  mov ACC.4, 04h		; grabs 5th bit from register 0
-	jb alarm
-	mov ACC.7, 07h            ; grabs 8th bit from register 0
-	jb alarm
+check:  mov A, r0		; grabs 5th bit from register 0
+	jb ACC.4, alarm
+	jb ACC.7, alarm
 	sjmp loop
 	
 alarm:	ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
