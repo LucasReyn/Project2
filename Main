@@ -42,13 +42,13 @@ increment:
         inc r0                  ; increment r0
         mov ACC.4,#0h		; grabs 5th bit from register 0
         jb flow                 ; jumps if ACC.4 equals 1 to alarm
-        sjmp (loop for inc/dec) ; short jumps back to button
+        sjmp (loop) ; short jumps back to button
 
 ; overflow/underflow alarm
 
 flow:  ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
         ; emit alarm sound
-        sjmp(loop for inc/dec)
+        sjmp(loop)
 
 	
 ; blinkes amount in r0
