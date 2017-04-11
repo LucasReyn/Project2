@@ -23,10 +23,6 @@ loop:	mov c,p1.4		; move switch _ to c flag
 	jnc togglebit3		; jump to togglebit3 label if __ pressed
         mov c,p2.0		; move switch _ to c flag      
 	jnc multiply			; jump to __ label if __ pressed
-        mov c,p_._		; move switch _ to c flag
-	jnc __			; jump to __ label if __ pressed
-	mov c,p_._		; move switch _ to c flag      
-	jnc __			; jump to __ label if __ pressed
 	sjmp loop		; jump back
 
 
@@ -43,10 +39,33 @@ increment:
 	
 	
 multiply:  mov A, R0            ; mov data to Acc    
-           add R0, A            ; adding r0 and accumulator is same as multiplying by 2
+           add A,R0            ; adding r0 and accumulator is same as multiplying by 2
+	   mov R0,A
            sjmp check           ; checks for overflow/underflow
 	   
-	   
+; togglebit
+togglebit0:
+        mov A, R0               ; mov data to Acc
+        xrl A, #01h             ; togglebit 0
+        mov R0, A               ; store data in R0
+        sjmp display
+togglebit1:
+        mov A, R0               ; mov data to Acc
+        xrl A, #02h             ; togglebit 1
+        mov R0, A               ; store data in R0
+        sjmp display
+togglebit2:
+        mov A, R0               ; mov data to Acc
+        xrl A, #04h             ; togglebit 2
+        mov R0, A               ; store data in R0
+        sjmp display
+togglebit3:
+        mov A, R0               ; mov data to Acc
+        xrl A, #08h             ; togglebit 3
+        mov R0, A               ; store data in R0
+        sjmp display
+
+
 
 check:  mov A, r0		
 	jb ACC.4, alarm
@@ -64,17 +83,7 @@ again1:	cpl p1.7
 	djnz r6,again1
 	djnz r5,again0
 	sjmp display
-	
-sound:	mov r3,r0
-	mov r4,#255
-	cpl p1.7
-	lcall delay
-	djnz R4, again
-	sjmp loop
-
-
-
-	
+		
 
 	   
 display:   mov A, R0            ; mov data to acc
@@ -91,14 +100,12 @@ display:   mov A, R0            ; mov data to acc
 
 
 
-
-
-
 delay:
 	mov R2,#40		; initial value for delayLoop1
 delayLoop1:			; start of delayLoop1
-	ADD r3,#13
-	mov R1,R3		; delayLoop0 depends on binary number
+	mov A, r3
+	ADD A,#13
+	mov R1,A		; delayLoop0 depends on binary number
 delayLoop0:			; start of delayLoop1
 	nop			; takes 1 machine cycle
 	djnz R1,delayLoop0	; end of delayLoop0
@@ -133,27 +140,13 @@ delayb0:
 
 
       
-     
+sound:	mov A, r3
+	mov r0,A
+	mov r4,#255
+sloop:	cpl p1.7
+	lcall delay
+	djnz R4, sloop
+	sjmp loop     
         
-; togglebit
-togglebit0:
-        mov A, R0               ; mov data to Acc
-        xrl A, #01h             ; togglebit 0
-        mov R0, A               ; store data in R0
-        sjmp display
-togglebit1:
-        mov A, R0               ; mov data to Acc
-        xrl A, #02h             ; togglebit 1
-        mov R0, A               ; store data in R0
-        sjmp display
-togglebit2:
-        mov A, R0               ; mov data to Acc
-        xrl A, #04h             ; togglebit 2
-        mov R0, A               ; store data in R0
-        sjmp display
-togglebit3:
-        mov A, R0               ; mov data to Acc
-        xrl A, #08h             ; togglebit 3
-        mov R0, A               ; store data in R0
-        sjmp display
+
 end
