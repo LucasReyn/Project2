@@ -72,6 +72,10 @@ sound:	mov r3,r0
 	djnz R4, again
 	sjmp loop
 
+
+
+	
+
 	   
 display:   mov A, R0            ; mov data to acc
            CPL A                ; invert the data because active low 
@@ -79,7 +83,7 @@ display:   mov A, R0            ; mov data to acc
            mov 0.7, acc.1       ; LED8
            mov 2.5, acc.2       ; LED7
            mov 0.6, acc.3       ; LED6
-           sjmp sound           ; jumps to sound
+           sjmp blink           ; jumps to sound
 
 
 
@@ -100,7 +104,28 @@ delayLoop0:			; start of delayLoop1
 
 
 ; blinkes amount in r0
-
+blink:	mov A,R0
+	mov R6,A
+bloop:	clr p0.4
+	lcall delayb	
+ 	setb p0.4
+	lcall delayb
+	djnz R6, bloop
+	sjmp sound
+	
+delayb:				
+	mov R3,#10		
+delayb2:			
+	mov R2,#100		
+delayb1:			
+	mov R1,#255		
+delayb0:		
+	nop			
+	nop			
+	djnz R1,delayb0	
+	djnz R2,delayb1	
+	djnz R3,delayb2	
+	ret
 
 
       
