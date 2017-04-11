@@ -45,9 +45,6 @@ increment:
 multiply:  mov A, R0            ; mov data to Acc    
            add R0, A            ; adding r0 and accumulator is same as multiplying by 2
            sjmp check           ; checks for overflow/underflow
-           jb display           ; jumps to display
-	   jnz multiply         ; jumps back to multiply if it doesn't equal 0
-	   sjmp check           ; jumps to check
 	   
 	   
 
@@ -57,6 +54,7 @@ check:  mov A, r0		; grabs 5th bit from register 0
 	sjmp display
 	
 alarm:	ANL r0,#0Fh             ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+	mov r3,#16
 	mov r5,#3        	; emit alarm sound 4 times
 again0:	mov r6,#30
 again1:	cpl p1.7
