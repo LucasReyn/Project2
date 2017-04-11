@@ -9,8 +9,7 @@ cseg at 0
         mov r0, #00h            ; initialise r0
 
 ; button listener
-        loop:
-	mov c,p_._		; move switch _ to c flag
+loop:	mov c,p_._		; move switch _ to c flag
 	jnc increment		; jump to increment label if __ pressed
 	mov c,p_._		; move switch _ to c flag      
 	jnc decrement		; jump to decrement label if __ pressed
@@ -32,14 +31,14 @@ cseg at 0
 
 
 ; decrement 
-        decrement:
+decrement:
         dec r0                  ; decrement r0
         mov ACC.7,r0            ; grabs 8th bit from register 0
         jb flow             	; jumps if ACC.7 equals 1 to alarm
         sjmp(loop)  ; short jump back to button 
 
 ; increment or multiply
-        increment:
+increment:
         inc r0                  ; increment r0
         mov ACC.4,#0h		; grabs 5th bit from register 0
         jb flow                 ; jumps if ACC.4 equals 1 to alarm
@@ -65,7 +64,7 @@ blink:  mov R1,R0
 	
         
 ; togglebit
-        togglebit0:
+togglebit0:
         mov A, R0               ; mov data to Acc
         xrl A, #01h             ; togglebit 0
         mov R0, A               ; store data in R0
