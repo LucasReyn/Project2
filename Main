@@ -35,21 +35,27 @@ cseg at 0
         decrement:
         dec r0                  ; decrement r0
         mov ACC.7,r0            ; grabs 8th bit from register 0
-        je #1, flow             ; jumps if ACC.7 equals 1 to alarm
+	mov c,ACC.7
+        jc under             	; jumps if ACC.7 equals 1 to alarm
         sjmp(loop for inc/dec)  ; short jump back to button 
 
 ; increment or multiply
         increment:
         inc r0                  ; increment r0
-        mov ACC.4,#0h           ; grabs 5th bit from register 0
-        je #1,flow              ; jumps if ACC.4 equals 1 to alarm
+        mov ACC.4,#0h		; grabs 5th bit from register 0
+	mov c, ACC.4
+        jc over              ; jumps if ACC.4 equals 1 to alarm
         sjmp (loop for inc/dec) ; short jumps back to button
 
 ; overflow/underflow alarm
 
-flow:   AND r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+under:  ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
         ; emit alarm sound
-        sjmp(loop for buttons)
+        sjmp(loop for inc/dec)
+over:	mov r0,#0h
+	; emit alarm sound
+	sjmp(loop for inc/dec)
+	
 ; blinkes amount in r0
 
 	mov R1,R0
