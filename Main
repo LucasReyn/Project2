@@ -36,7 +36,7 @@ cseg at 0
         dec r0                  ; decrement r0
         mov ACC.7,r0            ; grabs 8th bit from register 0
         jb flow             	; jumps if ACC.7 equals 1 to alarm
-        sjmp(loop for inc/dec)  ; short jump back to button 
+        sjmp(loop)  ; short jump back to button 
 
 ; increment or multiply
         increment:
@@ -54,8 +54,8 @@ flow:  ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it
 	
 ; blinkes amount in r0
 
-	mov R1,R0
-blink:	setb P0.4
+blink:  mov R1,R0
+	setb P0.4
 		;delay 500ms 100*18432
 	clr P0.4
 		;delay 500ms 100*18432
