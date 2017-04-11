@@ -53,7 +53,9 @@ check:  mov A, r0
 	jb ACC.7, alarm
 	sjmp display
 	
-alarm:	ANL r0,#0Fh             ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+alarm:	mov A, r0
+	ANL A,#0Fh             ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+	mov r0, A
 	mov r3,#16
 	mov r5,#3        	; emit alarm sound 4 times
 again0:	mov r6,#30
