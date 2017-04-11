@@ -48,9 +48,27 @@ check:  mov A, r0		; grabs 5th bit from register 0
 	
 alarm:	ANL r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
         ; emit alarm sound
-        sjmp loop
+sound:	mov r3,r0
+	mov r4,#255
+	cpl p1.7
+	lcall delay
+	djnz R4, again
+	sjmp loop
 
 	
+; Start of Delay Subroutine
+delay:				; delay subroutine label
+	mov R2,#40		; initial value for delay_loop2
+delay_loop1:			; start of delay_loop1
+	mov R1,R3		; initial value for delay_loop0
+delay_loop0:			; start of delay_loop0
+	nop			; two nops take two processor clock
+	djnz R1,delay_loop0	; end of delay_loop0
+	djnz R2,delay_loop1	; end of delay_loop1
+	ret			; return instruction
+; End of Delay Subroutine
+
+
 ; blinkes amount in r0
 
 blink:  mov R1,R0
