@@ -46,9 +46,21 @@ cseg at 0
         sjmp (loop for inc/dec) ; short jumps back to button
 
 ; overflow/underflow alarm
+
 flow:   AND r0,#0Fh                ; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
         ; emit alarm sound
         sjmp(loop for buttons)
+; blinkes amount in r0
+
+	mov R1,R0
+blink:	setb P0.4
+		;delay
+	clr P0.4
+		;delay
+	sub R1,#01h
+	jnz blink
+	sjmp(loop for inc/dec)
+	
         
 ; togglebit
         togglebit0:
