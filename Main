@@ -137,7 +137,7 @@ pass:	sjmp sound		; after blinking, short jump to sound loop
 
 ; nested delay for blinking loop
 delayb:				
-	mov R3,#10		; first delay loop, loops 10 times	
+	mov R4,#10		; first delay loop, loops 10 times	
 delayb2:			
 	mov R2,#100		; nested loop that loops 100 times
 delayb1:			
