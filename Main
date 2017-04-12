@@ -76,12 +76,12 @@ sloop:	cpl p1.7		; toggle speaker
 	sjmp loop  
 
 check:  mov A, r0		
-	jb ACC.4, alarm
-	jb ACC.7, alarm
+	jb ACC.4, alarm		; checks for overflow
+	jb ACC.7, alarm		; checks for underflow
 	sjmp display
 	
 alarm:	mov A, r0
-	ANL A,#0Fh             	; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
+	ANL A,#0Fh             	; clears over/underflow. Clears upper nibble and keeps lower nibble
 	mov r0, A
 	mov r3,#16
 	mov r5,#3        	; emit alarm sound 3 times
