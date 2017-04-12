@@ -140,7 +140,7 @@ delayb:
 delayb2:			
 	mov R2,#100		
 delayb1:			
-	mov R1,#255		
+	mov R1,#175		
 delayb0:		
 	nop			
 	nop			
