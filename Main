@@ -147,7 +147,7 @@ delayb0:
 	nop			; placeholder for machine cycle
 	djnz R1,delayb0		; decrements register 1 if not zero for third loop
 	djnz R2,delayb1		; decrements register 2 if not zero for second loop
-	djnz R3,delayb2		; decrements register 3 if not zero for first loop
+	djnz R4,delayb2		; decrements register 4 if not zero for first loop
 	ret			; returns to where delay was called
 
 
