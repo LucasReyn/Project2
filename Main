@@ -84,7 +84,7 @@ alarm:	mov A, r0
 	ANL A,#0Fh             	; clears over/underflow. if ACC.7 is 1 then it makes r0 equal 15
 	mov r0, A
 	mov r3,#16
-	mov r5,#3        	; emit alarm sound 4 times
+	mov r5,#3        	; emit alarm sound 3 times
 again0:	mov r6,#125		; length of alarm sound
 again1:	cpl p1.7
 	lcall delay
