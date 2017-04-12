@@ -30,16 +30,16 @@ loop:	mov c,p1.4		; move switch 5 to c flag
 ; decrement 
 decrement:
         dec r0                  ; decrement r0
-        sjmp check  ; short jump to check 
+        sjmp check  		; short jump to check 
 
 ; increment or multiply
 increment:
         inc r0                  ; increment r0
-        sjmp check ; short jumps check
+        sjmp check 		; short jumps check
 	
 	
 multiply:  mov A, R0            ; mov data to Acc    
-           add A,R0            ; adding r0 and accumulator is same as multiplying by 2
+           add A,R0             ; adding r0 and accumulator is same as multiplying by 2
 	   mov R0,A
            sjmp check           ; checks for overflow/underflow
 	   
