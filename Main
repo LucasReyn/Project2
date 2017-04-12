@@ -135,7 +135,7 @@ bloop:	clr p0.4
 pass:	sjmp sound
 	
 delayb:				
-	mov R3,#10		
+	mov R4,#10		
 delayb2:			
 	mov R2,#100		
 delayb1:			
@@ -145,7 +145,7 @@ delayb0:
 	nop			
 	djnz R1,delayb0	
 	djnz R2,delayb1	
-	djnz R3,delayb2	
+	djnz R4,delayb2	
 	ret
 
 
