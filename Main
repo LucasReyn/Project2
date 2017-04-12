@@ -85,11 +85,12 @@ alarm:	mov A, r0
 	mov r0, A
 	mov r3,#16
 	mov r5,#3        	; emit alarm sound 4 times
-again0:	mov r6,#100
+again0:	mov r6,#150
 again1:	cpl p1.7
 	lcall delay
 	djnz r6,again1
 	cpl p1.7		; gaps in alarm sound
+	lcall delayb
 	djnz r5,again0
 	sjmp display
 		
