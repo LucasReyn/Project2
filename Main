@@ -69,8 +69,8 @@ togglebit3:
 
 sound:	mov A, r0
 	mov r3,A
-	mov r4,#255
-sloop:	cpl p1.7
+	mov r4,#255		; length of sound
+sloop:	cpl p1.7		; toggle speaker
 	lcall delay
 	djnz R4, sloop
 	sjmp loop  
@@ -85,12 +85,12 @@ alarm:	mov A, r0
 	mov r0, A
 	mov r3,#16
 	mov r5,#3        	; emit alarm sound 4 times
-again0:	mov r6,#150
+again0:	mov r6,#125		; length of alarm sound
 again1:	cpl p1.7
 	lcall delay
 	djnz r6,again1
 	cpl p1.7		; gaps in alarm sound
-	lcall delayb
+	lcall delayb		; blinking delay
 	djnz r5,again0
 	sjmp display
 		
