@@ -141,7 +141,7 @@ delayb:
 delayb2:			
 	mov R2,#100		; nested loop that loops 100 times
 delayb1:			
-	mov R1,#176		; nested loop that loops 175 times
+	mov R1,#175		; nested loop that loops 175 times
 delayb0:		
 	nop			; placeholder for machine cycle
 	nop			; placeholder for machine cycle
